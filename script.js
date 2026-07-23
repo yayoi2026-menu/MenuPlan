@@ -10,3 +10,20 @@ button.addEventListener("click", function () {
     }
 
 });
+
+const breakfastMon = document.getElementById("breakfast-mon");
+const breakfastMenu = document.getElementById("breakfast-menu");
+
+breakfastMon.addEventListener("click", function () {
+
+    breakfastMenu.style.display = "block";
+});
+
+const breadOption = document.getElementById("bread-option");
+
+breadOption.addEventListener("click", function () {
+
+    breakfastMon.textContent = "🍞";
+    breakfastMenu.style.display = "none";
+
+});
