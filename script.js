@@ -14,6 +14,8 @@ button.addEventListener("click", function () {
 const breakfastMon = document.getElementById("breakfast-mon");
 const breakfastMenu = document.getElementById("breakfast-menu");
 
+let breakfastCount = 0;
+
 breakfastMon.addEventListener("click", function () {
 
     breakfastMenu.style.display = "block";
@@ -21,9 +23,40 @@ breakfastMon.addEventListener("click", function () {
 
 const breadOption = document.getElementById("bread-option");
 
-breadOption.addEventListener("click", function () {
+const breakfastOptions = document.querySelectorAll("#breakfast-menu div");
 
-    breakfastMon.textContent = "🍞";
+breakfastOptions.forEach(function(option) {
+
+    option.addEventListener("click", function() {
+
+        const emoji = option.textContent.split(" ")[0];
+
+        if (emoji === "✔") {
+            breakfastMenu.style.display = "none";
+            return;
+        }
+
+        if (breakfastCount < 3) {
+
+            if (breakfastCount === 0) {
+                breakfastMon.textContent = "";
+            }
+
+            breakfastMon.textContent += emoji;
+            breakfastCount++;
+
+        }
+
+        breakfastMenu.style.display = "none";
+
+    });
+
+});
+
+const doneOption = document.getElementById("done-option");
+
+doneOption.addEventListener("click", function () {
+
     breakfastMenu.style.display = "none";
 
 });
