@@ -195,12 +195,18 @@ h2 {
     position: absolute;
     top: 35px;
     left: 0;
-    background: white;
-    border: 1px solid #ccc;
+    background: rgb(224, 245, 245);
+    border: 1px solid #83b5fc;
     border-radius: 8px;
     padding: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     z-index: 100;
+    width: 110px;
+    font-size: 13px;
+}
+
+.popup-menu div {
+    padding: 3px;
 }
 
 .meal-cell {

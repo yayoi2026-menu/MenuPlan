@@ -47,16 +47,33 @@ breakfastOptions.forEach(function(option) {
 
         }
 
-        breakfastMenu.style.display = "none";
-
     });
 
 });
 
 const doneOption = document.getElementById("done-option");
+const backOption = document.getElementById("back-option");
 
 doneOption.addEventListener("click", function () {
 
+    breakfastCount = 0;
+
     breakfastMenu.style.display = "none";
+
+});
+
+backOption.addEventListener("click", function () {
+
+    if (breakfastCount > 0) {
+
+        const emojis = Array.from(breakfastMon.textContent);
+
+        emojis.pop();
+
+        breakfastMon.textContent = emojis.join("");
+
+        breakfastCount--;
+
+    }
 
 });
