@@ -193,7 +193,7 @@ h2 {
 .popup-menu {
     display: none;
     position: absolute;
-    top: 35px;
+    top: 60px;
     left: 0;
     background: rgb(224, 245, 245);
     border: 1px solid #83b5fc;

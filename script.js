@@ -14,7 +14,7 @@ button.addEventListener("click", function () {
 const breakfastMon = document.getElementById("breakfast-mon");
 const breakfastMenu = document.getElementById("breakfast-menu");
 
-let breakfastCount = 0;
+let breakfastItems = [];
 
 breakfastMon.addEventListener("click", function () {
 
@@ -23,7 +23,8 @@ breakfastMon.addEventListener("click", function () {
 
 const breadOption = document.getElementById("bread-option");
 
-const breakfastOptions = document.querySelectorAll("#breakfast-menu div");
+const breakfastOptions =
+    document.querySelectorAll("#breakfast-menu div:not(#back-option):not(#done-option)");
 
 breakfastOptions.forEach(function(option) {
 
@@ -31,19 +32,16 @@ breakfastOptions.forEach(function(option) {
 
         const emoji = option.textContent.split(" ")[0];
 
-        if (emoji === "✔") {
+        if (emoji === "✔" || emoji === "❌") {
             breakfastMenu.style.display = "none";
             return;
         }
 
-        if (breakfastCount < 3) {
+        if (breakfastItems.length < 3) {
 
-            if (breakfastCount === 0) {
-                breakfastMon.textContent = "";
-            }
+            breakfastItems.push(emoji);
 
-            breakfastMon.textContent += emoji;
-            breakfastCount++;
+            breakfastMon.textContent = breakfastItems.join("");
 
         }
 
@@ -56,7 +54,7 @@ const backOption = document.getElementById("back-option");
 
 doneOption.addEventListener("click", function () {
 
-    breakfastCount = 0;
+    breakfastItems = [];
 
     breakfastMenu.style.display = "none";
 
@@ -64,15 +62,11 @@ doneOption.addEventListener("click", function () {
 
 backOption.addEventListener("click", function () {
 
-    if (breakfastCount > 0) {
+    if (breakfastItems.length > 0) {
 
-        const emojis = Array.from(breakfastMon.textContent);
+        breakfastItems.pop();
 
-        emojis.pop();
-
-        breakfastMon.textContent = emojis.join("");
-
-        breakfastCount--;
+        breakfastMon.textContent = breakfastItems.join("");
 
     }
 
