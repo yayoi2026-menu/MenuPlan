@@ -76,6 +76,20 @@ breakfastSun.addEventListener("click", function () {
 });
 
 
+const lunchMon = document.getElementById("lunch-mon");
+const lunchMenu = document.getElementById("lunch-menu");
+
+let lunchItems = [];
+
+lunchMon.addEventListener("click", function () {
+
+    lunchMenu.style.display = "block";
+
+});
+
+
+
+
 const breadOption = document.getElementById("bread-option");
 
 const breakfastOptions =
