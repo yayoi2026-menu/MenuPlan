@@ -76,17 +76,40 @@ breakfastSun.addEventListener("click", function () {
 });
 
 
-const lunchMon = document.getElementById("lunch-mon");
 const lunchMenu = document.getElementById("lunch-menu");
 
 let lunchItems = [];
 
-lunchMon.addEventListener("click", function () {
+// 月〜日の昼
+const lunchDays = [
+    document.getElementById("lunch-mon"),
+    document.getElementById("lunch-tue"),
+    document.getElementById("lunch-wed"),
+    document.getElementById("lunch-thu"),
+    document.getElementById("lunch-fri"),
+    document.getElementById("lunch-sat"),
+    document.getElementById("lunch-sun")
+];
 
-    lunchMenu.style.display = "block";
+// どの曜日の昼をタップしても、同じ昼メニューを開く
+lunchDays.forEach(function (day) {
+
+    day.addEventListener("click", function () {
+
+        lunchMenu.style.display = "block";
+
+    });
 
 });
 
+// 昼メニューの「完了」ボタン
+const doneOptionLunch = document.getElementById("done-option-lunch");
+
+doneOptionLunch.addEventListener("click", function () {
+
+    lunchMenu.style.display = "none";
+
+});
 
 
 
