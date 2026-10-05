@@ -80,6 +80,9 @@ const lunchMenu = document.getElementById("lunch-menu");
 
 let lunchItems = [];
 
+let selectedLunchDay = null;
+
+
 // 月〜日の昼
 const lunchDays = [
     document.getElementById("lunch-mon"),
@@ -96,11 +99,62 @@ lunchDays.forEach(function (day) {
 
     day.addEventListener("click", function () {
 
+        selectedLunchDay = day;
+
+        day.parentElement.appendChild(lunchMenu);
+
         lunchMenu.style.display = "block";
 
     });
 
 });
+
+// 昼メニューの料理をクリックしたら、選んだ曜日に入れる
+const lunchFoodOptions = lunchMenu.querySelectorAll("div:not(#back-option-lunch):not(#done-option-lunch)");
+
+lunchFoodOptions.forEach(function (option) {
+    option.addEventListener("click", function () {
+
+    if (selectedLunchDay !== null) {
+
+         const emoji = option.textContent.split(" ")[0];
+
+        // まだ料理を選んでいない場合は、仮の絵文字を消す
+       if (!selectedLunchDay.dataset.selected) {
+           selectedLunchDay.textContent = "";
+           selectedLunchDay.dataset.selected = "true";
+       }
+
+       // 最大3個まで追加
+       if (selectedLunchDay.textContent.length < 6) {
+           selectedLunchDay.textContent += emoji;
+       }
+
+    }
+       
+
+    });
+});
+
+
+// 昼メニューの「戻る」ボタン
+const backOptionLunch = document.getElementById("back-option-lunch");
+
+backOptionLunch.addEventListener("click", function () {
+
+    if (selectedLunchDay !== null && selectedLunchDay.dataset.selected) {
+
+        const emojis = Array.from(selectedLunchDay.textContent);
+
+        emojis.pop();
+
+        selectedLunchDay.textContent = emojis.join("");
+
+        
+    }
+
+});
+
 
 // 昼メニューの「完了」ボタン
 const doneOptionLunch = document.getElementById("done-option-lunch");

@@ -211,4 +211,5 @@ h2 {
 
 .meal-cell {
     position: relative;
+    min-height: 24px;
 }
