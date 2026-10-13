@@ -213,3 +213,7 @@ h2 {
     position: relative;
     min-height: 24px;
 }
+
+[id^="breakfast-"]:not(.popup-menu) {
+    min-height: 24px;
+}
