@@ -217,3 +217,18 @@ h2 {
 [id^="breakfast-"]:not(.popup-menu) {
     min-height: 24px;
 }
+
+/* 夕食メニューの位置 */
+#dinner-mon {
+    position: relative;
+}
+
+/* 夕食メニューを共通で使うための準備 */
+#dinner-menu {
+    position: fixed;
+}
+
+#dinner-menu {
+    max-height: 60vh;
+    overflow-y: auto;
+}
