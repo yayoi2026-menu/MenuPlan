@@ -243,12 +243,7 @@ backOption.addEventListener("click", function () {
 // 夕食
 // ======================
 
-const dinnerMon = document.getElementById("dinner-mon");
-
-dinnerMon.addEventListener("click", function () {
-   
-});
-
+const dinnerMon = document.getElementById("dinner-mon");   
 
 // 夕食メニューを開く
 const dinnerMenu = document.getElementById("dinner-menu");
@@ -271,14 +266,53 @@ doneOptionDinner.addEventListener("click", function (event) {
     dinnerMenu.style.display = "none";
 });
 
+// 🍚 ご飯を選ぶ
+const riceOptionDinner = document.getElementById("rice-option-dinner");
+
+riceOptionDinner.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    if (selectedDinnerDay.textContent.includes("🍚")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🍚", "");
+    } else {
+        selectedDinnerDay.textContent += "🍚";
+    }
+
+    dinnerMenu.style.display = "none";
+});
+
+// 🍲 汁物を選ぶ
+const soupOptionDinner = document.getElementById("soup-option-dinner");
+
+soupOptionDinner.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    if (selectedDinnerDay.textContent.includes("🍲")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🍲", "");
+    } else {
+        selectedDinnerDay.textContent += "🍲";
+    }
+    dinnerMenu.style.display = "none";
+});
+
+// 現在選択している夕食の曜日
+const dinnerMainEmoji = document.getElementById("dinner-main-emoji");
+let selectedDinnerDay = dinnerMainEmoji;
+
 // 豚肉料理を選択
 const porkOptionDinner = document.getElementById("pork-option-dinner");
-const dinnerMainEmoji = document.getElementById("dinner-main-emoji");
 
 porkOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    selectedDinnerDay.textContent = "🐷";
+    if (selectedDinnerDay.textContent.includes("🐷")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🐷", "");
+    } else {
+        selectedDinnerDay.textContent += "🐷";
+    }
     dinnerMenu.style.display = "none";
 });
 
@@ -288,7 +322,12 @@ const chickenOptionDinner = document.getElementById("chicken-option-dinner");
 chickenOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    selectedDinnerDay.textContent = "🐔";
+    if (selectedDinnerDay.textContent.includes("🐔")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🐔", "");
+    } else {
+        selectedDinnerDay.textContent += "🐔";
+    }
     dinnerMenu.style.display = "none";
 });
 
@@ -298,7 +337,12 @@ const eggOptionDinner = document.getElementById("egg-option-dinner");
 eggOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    selectedDinnerDay.textContent = "🥚";
+    if (selectedDinnerDay.textContent.includes("🥚")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🥚", "");
+    } else {
+        selectedDinnerDay.textContent += "🥚";
+    }
     dinnerMenu.style.display = "none";
 });
 
@@ -308,9 +352,15 @@ const vegetableOptionDinner = document.getElementById("vegetable-option-dinner")
 vegetableOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    selectedDinnerDay.textContent = "🥦";
+    if (selectedDinnerDay.textContent.includes("🥦")) {
+        selectedDinnerDay.textContent =
+            selectedDinnerDay.textContent.replace("🥦", "");
+    } else {
+        selectedDinnerDay.textContent += "🥦";
+    }
     dinnerMenu.style.display = "none";
 });
+
 
 // 夕食メニューの「戻る」ボタン
 const backOptionDinner = document.getElementById("back-option-dinner");
@@ -318,7 +368,7 @@ const backOptionDinner = document.getElementById("back-option-dinner");
 backOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    dinnerMainEmoji.textContent = "🍚🥗";
+    dinnerMenu.style.display = "none";
 });
 
 // 火曜日の夕食メニューを開く
@@ -341,6 +391,8 @@ const dinnerWed = document.getElementById("dinner-wed");
 
 dinnerWed.addEventListener("click", function () {
 
+    selectedDinnerDay = document.getElementById("dinner-main-emoji-wed");
+
     const rect = dinnerWed.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
@@ -353,6 +405,8 @@ dinnerWed.addEventListener("click", function () {
 const dinnerThu = document.getElementById("dinner-thu");
 
 dinnerThu.addEventListener("click", function () {
+
+    selectedDinnerDay = document.getElementById("dinner-main-emoji-thu");
 
     const rect = dinnerThu.getBoundingClientRect();
 
@@ -367,6 +421,8 @@ const dinnerFri = document.getElementById("dinner-fri");
 
 dinnerFri.addEventListener("click", function () {
 
+    selectedDinnerDay = document.getElementById("dinner-main-emoji-fri");
+
     const rect = dinnerFri.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
@@ -379,6 +435,8 @@ dinnerFri.addEventListener("click", function () {
 const dinnerSat = document.getElementById("dinner-sat");
 
 dinnerSat.addEventListener("click", function () {
+
+    selectedDinnerDay = document.getElementById("dinner-main-emoji-sat");
 
     const rect = dinnerSat.getBoundingClientRect();
 
@@ -393,6 +451,8 @@ const dinnerSun = document.getElementById("dinner-sun");
 
 dinnerSun.addEventListener("click", function () {
 
+    selectedDinnerDay = document.getElementById("dinner-main-emoji-sun");
+
     const rect = dinnerSun.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
@@ -402,5 +462,4 @@ dinnerSun.addEventListener("click", function () {
 });
 
 
-// 現在選択している夕食の曜日
-let selectedDinnerDay = dinnerMainEmoji;
+
