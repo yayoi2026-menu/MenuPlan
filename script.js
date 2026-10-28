@@ -107,10 +107,19 @@ lunchFoodOptions.forEach(function (option) {
            selectedLunchDay.dataset.selected = "true";
        }
 
-       // 最大3個まで追加
-       if (selectedLunchDay.textContent.length < 6) {
+       // 同じ絵文字があれば消す
+       if (selectedLunchDay.textContent.includes(emoji)) {
+
+           selectedLunchDay.textContent =
+               selectedLunchDay.textContent.replace(emoji, "");
+
+       } else if (Array.from(selectedLunchDay.textContent).length < 3) {
+
+           // まだ選んでいなければ追加
            selectedLunchDay.textContent += emoji;
+
        }
+       
 
     }
        
@@ -174,16 +183,25 @@ breakfastOptions.forEach(function(option) {
             breakfastItemsByDay[dayId] = [];
         }
 
-        if (breakfastItemsByDay[dayId].length < 3) {
+        if (breakfastItemsByDay[dayId].includes(emoji)) {
 
-            breakfastItemsByDay[dayId].push(emoji);
+        // 同じ絵文字があれば消す
+        breakfastItemsByDay[dayId] =
+            breakfastItemsByDay[dayId].filter(function(item) {
+                return item !== emoji;
+            });
 
-            selectedBreakfastDay.textContent =
-                breakfastItemsByDay[dayId].join("");
+} else if (breakfastItemsByDay[dayId].length < 3) {
 
-        }
+    // まだ選んでいなければ追加
+    breakfastItemsByDay[dayId].push(emoji);
+
+}
+
+selectedBreakfastDay.textContent =
+    breakfastItemsByDay[dayId].join("");
+        
     }
-
 
     });
 
@@ -250,13 +268,25 @@ const dinnerMenu = document.getElementById("dinner-menu");
 
 dinnerMon.addEventListener("click", function () {
 
+    selectedDinnerDay = dinnerMainEmoji;
+    dinnerBeforeEdit = selectedDinnerDay.textContent;
+
     const rect = dinnerMon.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
 });
+
 
 // 夕食メニューの「完了」ボタン
 const doneOptionDinner = document.getElementById("done-option-dinner");
@@ -279,7 +309,6 @@ riceOptionDinner.addEventListener("click", function (event) {
         selectedDinnerDay.textContent += "🍚";
     }
 
-    dinnerMenu.style.display = "none";
 });
 
 // 🍲 汁物を選ぶ
@@ -294,12 +323,14 @@ soupOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🍲";
     }
-    dinnerMenu.style.display = "none";
+    
 });
 
 // 現在選択している夕食の曜日
 const dinnerMainEmoji = document.getElementById("dinner-main-emoji");
 let selectedDinnerDay = dinnerMainEmoji;
+let dinnerBeforeEdit = "";
+
 
 // 豚肉料理を選択
 const porkOptionDinner = document.getElementById("pork-option-dinner");
@@ -313,7 +344,7 @@ porkOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🐷";
     }
-    dinnerMenu.style.display = "none";
+    
 });
 
 // 鶏肉料理を選択
@@ -328,7 +359,7 @@ chickenOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🐔";
     }
-    dinnerMenu.style.display = "none";
+    
 });
 
 // 卵料理を選択
@@ -343,7 +374,7 @@ eggOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🥚";
     }
-    dinnerMenu.style.display = "none";
+    
 });
 
 // 野菜を選択
@@ -358,7 +389,7 @@ vegetableOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🥦";
     }
-    dinnerMenu.style.display = "none";
+    
 });
 
 
@@ -368,7 +399,14 @@ const backOptionDinner = document.getElementById("back-option-dinner");
 backOptionDinner.addEventListener("click", function (event) {
     event.stopPropagation();
 
-    dinnerMenu.style.display = "none";
+    // 選んだ絵文字を最後から1つ消す
+    let emojis = Array.from(selectedDinnerDay.textContent);
+
+    if (emojis.length > 0) {
+        emojis.pop();
+        selectedDinnerDay.textContent = emojis.join("");
+    }
+
 });
 
 // 火曜日の夕食メニューを開く
@@ -381,11 +419,20 @@ dinnerTue.addEventListener("click", function () {
     const rect = dinnerTue.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
-});
 
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
+});
+    
+    
 // 水曜日の夕食メニューを開く
 const dinnerWed = document.getElementById("dinner-wed");
 
@@ -396,10 +443,20 @@ dinnerWed.addEventListener("click", function () {
     const rect = dinnerWed.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
 });
+    
+
 
 // 木曜日の夕食メニューを開く
 const dinnerThu = document.getElementById("dinner-thu");
@@ -411,10 +468,19 @@ dinnerThu.addEventListener("click", function () {
     const rect = dinnerThu.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
 });
+    
 
 // 金曜日の夕食メニューを開く
 const dinnerFri = document.getElementById("dinner-fri");
@@ -426,10 +492,19 @@ dinnerFri.addEventListener("click", function () {
     const rect = dinnerFri.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
 });
+    
 
 // 土曜日の夕食メニューを開く
 const dinnerSat = document.getElementById("dinner-sat");
@@ -441,10 +516,20 @@ dinnerSat.addEventListener("click", function () {
     const rect = dinnerSat.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
 });
+    
+    
 
 // 日曜日の夕食メニューを開く
 const dinnerSun = document.getElementById("dinner-sun");
@@ -456,10 +541,124 @@ dinnerSun.addEventListener("click", function () {
     const rect = dinnerSun.getBoundingClientRect();
 
     dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.top = rect.bottom + "px";
-
     dinnerMenu.style.display = "block";
+
+    // メニューの高さを調べる
+    const menuHeight = dinnerMenu.offsetHeight;
+
+    // 下に入りきらなければ、上に表示する
+    if (rect.bottom + menuHeight > window.innerHeight) {
+        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+    } else {
+        dinnerMenu.style.top = rect.bottom + "px";
+    }
+});
+    
+
+// ======================
+// 献立の保存
+// ======================
+
+
+// ======================
+// 朝ごはん7日分の保存・読み込み
+// ======================
+
+breakfastDays.forEach(function(day) {
+
+    const storageKey = day.id;
+
+    // 保存してある朝ごはんを読み込む
+    const savedBreakfast = localStorage.getItem(storageKey);
+
+    if (savedBreakfast !== null) {
+        day.textContent = savedBreakfast;
+
+        // 選択した絵文字も復元する
+        breakfastItemsByDay[storageKey] =
+            Array.from(savedBreakfast);
+    }
+
+    // 朝ごはんが変更されたら自動保存
+    const observer = new MutationObserver(function() {
+        localStorage.setItem(storageKey, day.textContent);
+    });
+
+    observer.observe(day, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
+
 });
 
 
+// ======================
+// 昼ごはん7日分の保存・読み込み
+// ======================
 
+lunchDays.forEach(function(day) {
+
+    const storageKey = day.id;
+
+    // 保存してある昼ごはんを読み込む
+    const savedLunch = localStorage.getItem(storageKey);
+
+    if (savedLunch !== null) {
+        day.textContent = savedLunch;
+
+        // 選択済みの印を復元する
+        day.dataset.selected = "true";
+    }
+
+    // 昼ごはんが変更されたら自動保存
+    const observer = new MutationObserver(function() {
+        localStorage.setItem(storageKey, day.textContent);
+    });
+
+    observer.observe(day, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
+
+});
+
+
+// ======================
+// 夜ごはん7日分の保存・読み込み
+// ======================
+
+const dinnerSaveDays = [
+    "dinner-main-emoji",
+    "dinner-main-emoji-tue",
+    "dinner-main-emoji-wed",
+    "dinner-main-emoji-thu",
+    "dinner-main-emoji-fri",
+    "dinner-main-emoji-sat",
+    "dinner-main-emoji-sun"
+];
+
+dinnerSaveDays.forEach(function(dayId) {
+
+    const day = document.getElementById(dayId);
+
+    // 保存してある夜ごはんを読み込む
+    const savedDinner = localStorage.getItem(dayId);
+
+    if (savedDinner !== null) {
+        day.textContent = savedDinner;
+    }
+
+    // 夜ごはんが変更されたら自動保存
+    const observer = new MutationObserver(function() {
+        localStorage.setItem(dayId, day.textContent);
+    });
+
+    observer.observe(day, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
+
+});
