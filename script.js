@@ -262,31 +262,7 @@ backOption.addEventListener("click", function () {
 // ======================
 
 const dinnerMon = document.getElementById("dinner-mon");   
-
-// 夕食メニューを開く
 const dinnerMenu = document.getElementById("dinner-menu");
-
-dinnerMon.addEventListener("click", function () {
-
-    selectedDinnerDay = dinnerMainEmoji;
-    dinnerBeforeEdit = selectedDinnerDay.textContent;
-
-    const rect = dinnerMon.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-
 
 // 夕食メニューの「完了」ボタン
 const doneOptionDinner = document.getElementById("done-option-dinner");
@@ -409,156 +385,51 @@ backOptionDinner.addEventListener("click", function (event) {
 
 });
 
-// 火曜日の夕食メニューを開く
-const dinnerTue = document.getElementById("dinner-tue");
 
-dinnerTue.addEventListener("click", function () {
+// ======================
+// 火曜日〜日曜日の夕食メニューを開く
+// ======================
 
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-tue");
+const dinnerDays = [
+    "mon", "tue", "wed", "thu", "fri", "sat", "sun"
+];
 
-    const rect = dinnerTue.getBoundingClientRect();
+dinnerDays.forEach(function(dayName) {
 
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
+    const dinnerCell = document.getElementById("dinner-" + dayName);
 
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
+    const emojiId = dayName === "mon"
+    ? "dinner-main-emoji"
+    : "dinner-main-emoji-" + dayName;
 
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
+    const dinnerEmoji = document.getElementById(emojiId);
+
+    dinnerCell.addEventListener("click", function() {
+
+        selectedDinnerDay = dinnerEmoji;
+
+        const rect = dinnerCell.getBoundingClientRect();
+
+        dinnerMenu.style.left = rect.left + "px";
+        dinnerMenu.style.display = "block";
+
+        const menuHeight = dinnerMenu.offsetHeight;
+
+        // 下に入りきらなければ、上に表示する
+        if (rect.bottom + menuHeight > window.innerHeight) {
+            dinnerMenu.style.top = (rect.top - menuHeight) + "px";
+        } else {
+            dinnerMenu.style.top = rect.bottom + "px";
+        }
+
+    });
+
 });
-    
-    
-// 水曜日の夕食メニューを開く
-const dinnerWed = document.getElementById("dinner-wed");
 
-dinnerWed.addEventListener("click", function () {
-
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-wed");
-
-    const rect = dinnerWed.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-    
-
-
-// 木曜日の夕食メニューを開く
-const dinnerThu = document.getElementById("dinner-thu");
-
-dinnerThu.addEventListener("click", function () {
-
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-thu");
-
-    const rect = dinnerThu.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-    
-
-// 金曜日の夕食メニューを開く
-const dinnerFri = document.getElementById("dinner-fri");
-
-dinnerFri.addEventListener("click", function () {
-
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-fri");
-
-    const rect = dinnerFri.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-    
-
-// 土曜日の夕食メニューを開く
-const dinnerSat = document.getElementById("dinner-sat");
-
-dinnerSat.addEventListener("click", function () {
-
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-sat");
-
-    const rect = dinnerSat.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-    
-    
-
-// 日曜日の夕食メニューを開く
-const dinnerSun = document.getElementById("dinner-sun");
-
-dinnerSun.addEventListener("click", function () {
-
-    selectedDinnerDay = document.getElementById("dinner-main-emoji-sun");
-
-    const rect = dinnerSun.getBoundingClientRect();
-
-    dinnerMenu.style.left = rect.left + "px";
-    dinnerMenu.style.display = "block";
-
-    // メニューの高さを調べる
-    const menuHeight = dinnerMenu.offsetHeight;
-
-    // 下に入りきらなければ、上に表示する
-    if (rect.bottom + menuHeight > window.innerHeight) {
-        dinnerMenu.style.top = (rect.top - menuHeight) + "px";
-    } else {
-        dinnerMenu.style.top = rect.bottom + "px";
-    }
-});
-    
 
 // ======================
 // 献立の保存
 // ======================
-
 
 // ======================
 // 朝ごはん7日分の保存・読み込み
@@ -660,5 +531,123 @@ dinnerSaveDays.forEach(function(dayId) {
         characterData: true,
         subtree: true
     });
+
+});
+
+
+// ======================
+// お弁当7日分の個数
+// ======================
+
+const bentoDays = [
+    "mon", "tue", "wed", "thu",
+    "fri", "sat", "sun"
+];
+
+bentoDays.forEach(function(dayName) {
+
+    const bento = document.getElementById("bento-" + dayName);
+
+    bento.addEventListener("click", function() {
+
+        const count = (bento.textContent.match(/🍱/g) || []).length;
+
+        const nextCount = (count + 1) % 4;
+
+        bento.textContent = "🍱".repeat(nextCount);
+
+    });
+
+});
+
+
+// ======================
+// お弁当7日分の保存・読み込み
+// ======================
+
+bentoDays.forEach(function(dayName) {
+
+    const bento = document.getElementById("bento-" + dayName);
+    const storageKey = "bento-" + dayName;
+
+    // 保存したお弁当の個数を読み込む
+    const savedBento = localStorage.getItem(storageKey);
+
+    if (savedBento !== null) {
+        bento.textContent = savedBento;
+    }
+
+    // 個数が変わったら自動保存
+    const observer = new MutationObserver(function() {
+        localStorage.setItem(storageKey, bento.textContent);
+    });
+
+    observer.observe(bento, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
+
+});
+
+
+// ======================
+// 今週の日付を自動表示
+// ======================
+
+const today = new Date();
+
+const monday = new Date(today);
+monday.setDate(today.getDate() - (today.getDay() + 6) % 7);
+
+const weekNames = ["月", "火", "水", "木", "金", "土", "日"];
+const weekIds = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+
+weekIds.forEach(function(day, index) {
+
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + index);
+
+    const dateCell = document.getElementById("date-" + day);
+
+    dateCell.textContent =
+        (date.getMonth() + 1) + "/" +
+        date.getDate();
+
+});
+
+
+// ======================
+// 今日の列を色付け
+// ======================
+
+// 月曜日を0、日曜日を6にする
+const todayIndex = (new Date().getDay() + 6) % 7;
+
+// 最初の列は「朝・昼」などの見出しなので +2
+const todayColumn = todayIndex + 2;
+
+// ======================
+// 今日の曜日と日付を色付け
+// ======================
+
+document.querySelectorAll(".date-row").forEach(function(row) {
+
+    const cell = row.children[todayIndex + 1];
+
+    if (cell) {
+        cell.classList.add("today-column");
+    }
+
+});
+
+// 今日の献立のマスに色を付ける
+document.querySelectorAll(".meal-row").forEach(function(row) {
+
+    const cell = row.children[todayIndex + 1];
+
+    if (cell) {
+        cell.classList.add("today-column");
+    }
 
 });
