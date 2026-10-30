@@ -1,307 +1,346 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Plan</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Menu Plan</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
 
 </head>
+
 <body>
-<!-- タイトル -->
-    <h1>✧Menu Plan✧</h1>
+   <!-- タイトル -->
+   <h1>✧Menu Plan✧</h1>
 
-    <div class="planner">
-    
-       <!-- やることリスト -->
+   <!-- 週の切り替えボタン -->
+   <div class="week-navigation">
+      <button id="prev-week">❮ 前の週</button>
+      <button id="current-week">今週</button>
+      <button id="next-week">次の週 ❯</button>
+   </div>
 
-       <div class="todo-row">
-           <div class="label">やること</div>
-           <div id="todo-button">
+
+
+   <div class="planner">
+
+      <!-- やることリスト -->
+
+      <div class="todo-row">
+         <div class="label">やること</div>
+         <div id="todo-button">
             📝
-        
-           <div class="todo-list">
+
+            <div class="todo-list">
                <ul>
-                   <li>□ パンを焼く</li>
-                   <li>□ 牛乳を買う</li>
-                   <li>□ お米をセット</li>
+                  <li>□ パンを焼く</li>
+                  <li>□ 牛乳を買う</li>
+                  <li>□ お米をセット</li>
                </ul>
-           </div>
-        
-        </div>
-
-           <div></div>
-           <div>📝</div>
-           <div></div>
-           <div></div>
-           <div></div>
-           <div></div>
-       </div>
-
-       <!-- 曜日 -->
-
-       <div class="date-row">
-           <div></div>
-           <div>月</div>
-           <div>火</div>
-           <div>水</div>
-           <div>木</div>
-           <div>金</div>
-           <div class="sat">土</div>
-           <div class="sun">日</div>
-       </div>
-
-
-       <!-- 日付 -->
-
-       <div class="date-row">
-           <div></div>
-           <div id="date-mon"></div>
-           <div id="date-tue"></div>
-           <div id="date-wed"></div>
-           <div id="date-thu"></div>
-           <div id="date-fri"></div>
-           <div id="date-sat" class="sat"></div>
-           <div id="date-sun" class="sun"></div>
-       </div>
-
-       <!-- 朝 -->
-
-       <div class="meal-row">
-           <div class="label">朝</div>
-
-           <div class="meal-cell">
-
-             <div id="breakfast-mon">🍞☕</div>
-
-             <div id="breakfast-menu" class="popup-menu">
-                 <div id="bread-option">🍞 パン</div>
-                 <div>🍚 ごはん</div>
-                 <div>🍲 みそ汁</div>
-                 <div>🥦 やさい</div>
-                 <div>🐟 さかな</div>
-                 <div>🥚 たまご</div>
-                 <div>🍯 ﾖｰｸﾞﾙﾄ</div>
-
-                 <div id="back-option">❌ 戻る</div>
-                 <div id="done-option">✔ 完了</div>
-             </div>
-
-          </div>    
-
-
-          <div class="meal-cell">
-             <div id="breakfast-tue">🍚🐟</div>
-          </div>     
-
-          <div class="meal-cell">
-             <div id="breakfast-wed">🍲</div>
-          </div> 
-
-          <div class="meal-cell">
-             <div id="breakfast-thu">🍲</div>
-          </div> 
-    
-         <div class="meal-cell">
-             <div id="breakfast-fri">🍲</div>
-          </div> 
-
-          <div class="meal-cell">
-             <div id="breakfast-sat">🍲</div>
-          </div> 
-        
-          <div class="meal-cell">
-             <div id="breakfast-sun">🍲</div>
-          </div> 
-
-       </div>
-
-       
-       <!-- 昼 -->
-
-        <div class="meal-row">
-           <div class="label">昼</div>
-
-           <div class="meal-cell">
-              <div id="lunch-mon">🍚</div>
-
-              <div id="lunch-menu" class="popup-menu">
-                 <div>🍞 パン</div>
-                 <div>🍜 やきそば</div>
-                 <div>🥚 たまご</div>
-                 <div>🥦 やさい</div>
-                 <div>🥝 フルーツ</div>
-                 <div>🥣 スープ</div>
-
-                 <div id="back-option-lunch">❌ 戻る</div>
-                 <div id="done-option-lunch">✔ 完了</div>
-             </div>
-
-           </div>
-           
-           <div class="meal-cell">
-              <div id="lunch-tue">🍝</div>
-           </div>  
-
-           <div class="meal-cell">
-              <div id="lunch-wed">🍝</div>
-           </div>
-
-           <div class="meal-cell">
-              <div id="lunch-thu">🍞</div>
-           </div>
-           
-           <div class="meal-cell">
-              <div id="lunch-fri">🍞</div>
-           </div>
-
-           <div class="meal-cell">
-              <div id="lunch-sat">🍜</div>
-           </div>
-
-           <div class="meal-cell">
-              <div id="lunch-sun">🍓</div> 
-           </div>
-           
-        </div>
-
-       <!-- 弁当 -->
-
-       <div class="meal-row">
-           <div class="label">弁当</div>
-           <div id="bento-mon">🍱🍱</div>
-           <div id="bento-tue"></div>
-           <div id="bento-wed">🍱</div>
-           <div id="bento-thu">🍱🍱🍱</div>
-           <div id="bento-fri"></div>
-           <div id="bento-sat"></div>
-           <div id="bento-sun"></div>
-       </div>
-
-       <!-- 📷 -->
-
-       <div class="meal-row">
-           <div class="label">📷</div>
-           <div></div>
-           <div>📷</div>
-           <div></div>
-           <div></div>
-           <div></div>
-           <div></div>
-           <div></div>
-       </div>
-
-       <!-- 夜 -->
-
-       <div class="meal-row night-row">
-           <div class="label">夜</div>
-           <div id="dinner-mon">
-
-               <div id="dinner-menu" class="popup-menu">
-                   <div id="rice-option-dinner">🍚 ご飯</div>
-                   <div id="soup-option-dinner">🍲 汁物</div>
-
-                   <div id="pork-option-dinner">🐷 豚肉料理</div>
-                   <div id="chicken-option-dinner">🐔 鶏肉料理</div>
-                   <div id="egg-option-dinner">🥚 卵料理</div>
-                   <div id="vegetable-option-dinner">🥦 野菜</div>
-
-                   <div id="back-option-dinner">❌ 戻る</div>
-                   <div id="done-option-dinner">✔ 完了</div>
-               </div>
-
-
-
-             <div class="main-menu"> 
-                 <span id="dinner-main-emoji">🍚🥗</span><br>
-                生姜焼き
-              </div>
-
-               <div class="sub-menu">
-                ブロッコリー<br>
-                味噌汁<br>
-                いちご
-               </div>
-           </div>
-
-           
-           <div id="dinner-tue">
-             <div class="main-menu">
-               <span id="dinner-main-emoji-tue">🍚</span><br>
-               餃子
-             </div>
-
-             <div class="sub-menu">
-                わかめスープ<br>
-                サラダ
-               </div>
-           </div>
-
-           <div id="dinner-wed">
-             <div class="main-menu">
-               <span id="dinner-main-emoji-wed">🐟</span><br>
-               魚
-             </div>
-
-             <div class="sub-menu">
-                とん汁
-               </div>
-           </div>
-
-           <div id="dinner-thu">
-             <div class="main-menu">
-               <span id="dinner-main-emoji-thu">🍝</span><br>
-               グラタン
-               </div>
-
-               <div class="sub-menu">
-                スープ
-               </div>
-           </div>
-
-           <div id="dinner-fri">
-             <div class="main-menu">
-               <span id="dinner-main-emoji-fri">🍚🥗</span><br>
-               生姜焼き
-             </div>
-
-               <div class="sub-menu">
-                ブロッコリー<br>
-                味噌汁
-               </div>
             </div>
 
-           <div id="dinner-sat">
-              <div class="main-menu">
-               <span id="dinner-main-emoji-sat">🍚🥗</span><br>
-               生姜焼き
-             </div>
+         </div>
 
-               <div class="sub-menu">
-                ブロッコリー<br>
-                味噌汁
+         <div></div>
+         <div>📝</div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+      </div>
+
+      <!-- 曜日 -->
+
+      <div class="date-row">
+         <div></div>
+         <div>月</div>
+         <div>火</div>
+         <div>水</div>
+         <div>木</div>
+         <div>金</div>
+         <div class="sat">土</div>
+         <div class="sun">日</div>
+      </div>
+
+
+      <!-- 日付 -->
+
+      <div class="date-row">
+         <div></div>
+         <div id="date-mon"></div>
+         <div id="date-tue"></div>
+         <div id="date-wed"></div>
+         <div id="date-thu"></div>
+         <div id="date-fri"></div>
+         <div id="date-sat" class="sat"></div>
+         <div id="date-sun" class="sun"></div>
+      </div>
+
+      <!-- 朝 -->
+
+      <div class="meal-row">
+         <div class="label">朝</div>
+
+         <div class="meal-cell">
+
+            <div id="breakfast-mon">🍞☕</div>
+
+            <div id="breakfast-menu" class="popup-menu">
+               <div id="bread-option">🍞 パン</div>
+               <div>🍚 ごはん</div>
+               <div>🍲 みそ汁</div>
+               <div>🥦 やさい</div>
+               <div>🐟 さかな</div>
+               <div>🥚 たまご</div>
+               <div>🍯 ﾖｰｸﾞﾙﾄ</div>
+
+               <div id="back-option">❌ 戻る</div>
+               <div id="done-option">✔ 完了</div>
+            </div>
+
+         </div>
+
+
+         <div class="meal-cell">
+            <div id="breakfast-tue">🍚🐟</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="breakfast-wed">🍲</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="breakfast-thu">🍲</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="breakfast-fri">🍲</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="breakfast-sat">🍲</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="breakfast-sun">🍲</div>
+         </div>
+
+      </div>
+
+
+      <!-- 昼 -->
+
+      <div class="meal-row">
+         <div class="label">昼</div>
+
+         <div class="meal-cell">
+            <div id="lunch-mon">🍚</div>
+
+            <div id="lunch-menu" class="popup-menu">
+               <div>🍞 パン</div>
+               <div>🍜 やきそば</div>
+               <div>🥚 たまご</div>
+               <div>🥦 やさい</div>
+               <div>🥝 フルーツ</div>
+               <div>🥣 スープ</div>
+
+               <div id="back-option-lunch">❌ 戻る</div>
+               <div id="done-option-lunch">✔ 完了</div>
+            </div>
+
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-tue">🍝</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-wed">🍝</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-thu">🍞</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-fri">🍞</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-sat">🍜</div>
+         </div>
+
+         <div class="meal-cell">
+            <div id="lunch-sun">🍓</div>
+         </div>
+
+      </div>
+
+      <!-- 弁当 -->
+
+      <div class="meal-row">
+         <div class="label">弁当</div>
+         <div id="bento-mon">🍱🍱</div>
+         <div id="bento-tue"></div>
+         <div id="bento-wed">🍱</div>
+         <div id="bento-thu">🍱🍱🍱</div>
+         <div id="bento-fri"></div>
+         <div id="bento-sat"></div>
+         <div id="bento-sun"></div>
+      </div>
+
+      <!-- 📷 -->
+
+      <div class="meal-row">
+         <div class="label">📷</div>
+         <div></div>
+         <div>📷</div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+         <div></div>
+      </div>
+
+      <!-- 夜 -->
+
+      <div class="meal-row night-row">
+         <div class="label">夜</div>
+         <div id="dinner-mon">
+
+            <div id="dinner-menu" class="popup-menu">
+               <div id="rice-option-dinner">🍚 ご飯</div>
+               <div id="soup-option-dinner">🍲 汁物</div>
+
+               <div id="pork-option-dinner">🐷 豚肉料理</div>
+               <div id="chicken-option-dinner">🐔 鶏肉料理</div>
+               <div id="egg-option-dinner">🥚 卵料理</div>
+               <div id="vegetable-option-dinner">🥦 野菜</div>
+
+               <div id="back-option-dinner">❌ 戻る</div>
+               <div id="done-option-dinner">✔ 完了</div>
+            </div>
+
+
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji">🍚🥗</span>
                </div>
-           </div>
 
-           <div id="dinner-sun">
-              <div class="main-menu">
-               <span id="dinner-main-emoji-sun">🍚🥗</span><br>
-               生姜焼き
-             </div>
-
-               <div class="sub-menu">
-                ブロッコリー<br>
-                味噌汁
+               <div class="dinner-text-area">
+                  生姜焼き
                </div>
-           </div>
 
-       </div>
+            </div>
 
-    </div>
+            <div class="sub-menu">
+               ブロッコリー<br>
+               味噌汁<br>
+               いちご
+            </div>
+         </div>
 
-<script src="script.js"></script>
+
+         <div id="dinner-tue">
+            <div class="main-menu">
+
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-tue">🍚</span>
+               </div>
+
+               <div class="dinner-text-area">
+                  餃子
+               </div>
+
+            </div>
+
+            <div class="sub-menu">
+               わかめスープ<br>
+               サラダ
+            </div>
+         </div>
+
+
+         <div id="dinner-wed">
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-wed">🐟</span>
+               </div>
+               <div class="dinner-text-area">魚</div>
+            </div>
+
+            <div class="sub-menu">
+               とん汁
+            </div>
+         </div>
+
+
+         <div id="dinner-thu">
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-thu">🍝</span>
+               </div>
+               <div class="dinner-text-area">グラタン</div>
+            </div>
+
+            <div class="sub-menu">
+               スープ
+            </div>
+         </div>
+
+
+         <div id="dinner-fri">
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-fri">🍚🥗</span>
+               </div>
+               <div class="dinner-text-area">生姜焼き</div>
+            </div>
+
+            <div class="sub-menu">
+               ブロッコリー<br>
+               味噌汁
+            </div>
+         </div>
+
+
+         <div id="dinner-sat">
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-sat">🍚🥗</span>
+               </div>
+               <div class="dinner-text-area">生姜焼き</div>
+            </div>
+
+            <div class="sub-menu">
+               ブロッコリー<br>
+               味噌汁
+            </div>
+         </div>
+
+
+         <div id="dinner-sun">
+            <div class="main-menu">
+               <div class="dinner-emoji-area">
+                  <span id="dinner-main-emoji-sun">🍚🥗</span>
+               </div>
+               <div class="dinner-text-area">生姜焼き</div>
+            </div>
+
+            <div class="sub-menu">
+               ブロッコリー<br>
+               味噌汁
+            </div>
+         </div>
+
+      </div>
+
+   </div>
+
+   <script src="script.js"></script>
 </body>
+
 </html>

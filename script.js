@@ -595,25 +595,112 @@ bentoDays.forEach(function(dayName) {
 // 今週の日付を自動表示
 // ======================
 
-const today = new Date();
+// ======================
+// 前の週・今週・次の週
+// ======================
 
-const monday = new Date(today);
-monday.setDate(today.getDate() - (today.getDay() + 6) % 7);
+// 今週から何週間ずれているか
+let weekOffset = 0;
 
-const weekNames = ["月", "火", "水", "木", "金", "土", "日"];
+// 表示中の週の月曜日を保存用の名前にする
+function getWeekKey() {
+
+    const today = new Date();
+
+    const monday = new Date(today);
+
+    monday.setDate(
+        today.getDate() - (today.getDay() + 6) % 7 + weekOffset * 7
+    );
+
+    const year = monday.getFullYear();
+    const month = String(monday.getMonth() + 1).padStart(2, "0");
+    const day = String(monday.getDate()).padStart(2, "0");
+
+    return year + "-" + month + "-" + day;
+}
+
+
+
+// ======================
+// 今までの献立を今週のデータとして保存
+// ======================
+
+function backupCurrentWeekMeals() {
+
+    const weekKey = getWeekKey();
+
+    const mealIds = [
+        ...breakfastDays.map(day => day.id),
+        ...lunchDays.map(day => day.id),
+        ...dinnerSaveDays,
+        ...bentoDays.map(day => "bento-" + day)
+    ];
+
+    mealIds.forEach(function(id) {
+
+        const oldData = localStorage.getItem(id);
+        const newKey = "week-" + weekKey + "-" + id;
+
+        // まだ週別データがない場合だけコピーする
+        if (oldData !== null && localStorage.getItem(newKey) === null) {
+            localStorage.setItem(newKey, oldData);
+        }
+
+    });
+}
+
+// 今週のデータを週別の名前でも保存
+backupCurrentWeekMeals();
+
+
+// 日付を表示する曜日
 const weekIds = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
-weekIds.forEach(function(day, index) {
+// 指定した週の日付を表示
+function showWeekDates() {
 
-    const date = new Date(monday);
-    date.setDate(monday.getDate() + index);
+    const today = new Date();
 
-    const dateCell = document.getElementById("date-" + day);
+    // 今週の月曜日を求める
+    const monday = new Date(today);
+    monday.setDate(today.getDate() - (today.getDay() + 6) % 7);
 
-    dateCell.textContent =
-        (date.getMonth() + 1) + "/" +
-        date.getDate();
+    // 前後の週に移動
+    monday.setDate(monday.getDate() + weekOffset * 7);
 
+    weekIds.forEach(function(day, index) {
+
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + index);
+
+        const dateCell = document.getElementById("date-" + day);
+
+        dateCell.textContent =
+            (date.getMonth() + 1) + "/" + date.getDate();
+
+    });
+}
+
+// 最初は今週を表示
+showWeekDates();
+
+// 前の週
+document.getElementById("prev-week").addEventListener("click", function() {
+    weekOffset--;
+    showWeekDates();
+});
+
+// 今週に戻る
+document.getElementById("current-week").addEventListener("click", function() {
+    weekOffset = 0;
+    showWeekDates();
+});
+
+// 次の週
+document.getElementById("next-week").addEventListener("click", function() {
+    weekOffset++;
+    showWeekDates();
 });
 
 
@@ -649,5 +736,64 @@ document.querySelectorAll(".meal-row").forEach(function(row) {
     if (cell) {
         cell.classList.add("today-column");
     }
+
+});
+
+
+// ======================
+// 夕食7日分・絵文字3個×2段
+// ======================
+
+const dinnerEmojiIds = [
+    "dinner-main-emoji",
+    "dinner-main-emoji-tue",
+    "dinner-main-emoji-wed",
+    "dinner-main-emoji-thu",
+    "dinner-main-emoji-fri",
+    "dinner-main-emoji-sat",
+    "dinner-main-emoji-sun"
+];
+
+dinnerEmojiIds.forEach(function(emojiId) {
+
+    const emojiArea = document.getElementById(emojiId);
+
+    function arrangeDinnerEmoji() {
+
+        const emojiText = emojiArea.textContent;
+        const emojis = Array.from(emojiText);
+
+        emojiArea.innerHTML = "";
+
+        emojis.forEach(function(emoji) {
+
+            const emojiBox = document.createElement("span");
+            emojiBox.textContent = emoji;
+
+            emojiArea.appendChild(emojiBox);
+
+        });
+    }
+
+    const emojiObserver = new MutationObserver(function() {
+
+        emojiObserver.disconnect();
+
+        arrangeDinnerEmoji();
+
+        emojiObserver.observe(emojiArea, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    });
+
+    arrangeDinnerEmoji();
+
+    emojiObserver.observe(emojiArea, {
+        childList: true,
+        characterData: true,
+        subtree: true
+    });
 
 });

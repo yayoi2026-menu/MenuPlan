@@ -235,5 +235,78 @@ h2 {
 
 .date-row > .today-column,
 .meal-row > .today-column {
-    background-color: #fff0f5;
+    background-color: #f4cae2;
+}
+
+/* 今日の献立マスを縦いっぱいに広げる */
+.meal-row > .today-column {
+    align-self: stretch;
+}
+
+/* 朝・昼・弁当・写真だけ中央に配置 */
+.meal-row:not(.night-row) > .today-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ======================
+   夕食の絵文字専用エリア
+====================== */
+
+.dinner-emoji-area {
+    width: 100%;
+    text-align: center;
+}
+
+.dinner-text-area {
+    margin-top: 6px;
+}
+
+/* ======================
+   月曜日の夕食・絵文字2段分の高さ
+====================== */
+
+#dinner-mon .dinner-emoji-area {
+    min-height: 44px;
+}
+
+/* ======================
+   月曜日の夕食・絵文字3列表示
+====================== */
+
+/* 夕食7日分・絵文字エリアの高さをそろえる */
+.night-row .dinner-emoji-area {
+    min-height: 44px;
+}
+
+/* ======================
+   夕食7日分・絵文字3列×2段
+====================== */
+
+[id^="dinner-main-emoji"] {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 22px);
+    text-align: center;
+}
+
+
+/* ======================
+   週の切り替えボタン
+====================== */
+
+.week-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.week-navigation button {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
 }
