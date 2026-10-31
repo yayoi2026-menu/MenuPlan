@@ -40,7 +40,7 @@ const breakfastDays = [
 breakfastDays.forEach(function (day) {
     day.addEventListener("click", function () {
 
-selectedBreakfastDay = day;        
+        selectedBreakfastDay = day;
 
         // 曜日別のメニューを閉じる
         document.querySelectorAll(".meal-row .popup-menu")
@@ -97,32 +97,32 @@ const lunchFoodOptions = lunchMenu.querySelectorAll("div:not(#back-option-lunch)
 lunchFoodOptions.forEach(function (option) {
     option.addEventListener("click", function () {
 
-    if (selectedLunchDay !== null) {
+        if (selectedLunchDay !== null) {
 
-         const emoji = option.textContent.split(" ")[0];
+            const emoji = option.textContent.split(" ")[0];
 
-        // まだ料理を選んでいない場合は、仮の絵文字を消す
-       if (!selectedLunchDay.dataset.selected) {
-           selectedLunchDay.textContent = "";
-           selectedLunchDay.dataset.selected = "true";
-       }
+            // まだ料理を選んでいない場合は、仮の絵文字を消す
+            if (!selectedLunchDay.dataset.selected) {
+                selectedLunchDay.textContent = "";
+                selectedLunchDay.dataset.selected = "true";
+            }
 
-       // 同じ絵文字があれば消す
-       if (selectedLunchDay.textContent.includes(emoji)) {
+            // 同じ絵文字があれば消す
+            if (selectedLunchDay.textContent.includes(emoji)) {
 
-           selectedLunchDay.textContent =
-               selectedLunchDay.textContent.replace(emoji, "");
+                selectedLunchDay.textContent =
+                    selectedLunchDay.textContent.replace(emoji, "");
 
-       } else if (Array.from(selectedLunchDay.textContent).length < 3) {
+            } else if (Array.from(selectedLunchDay.textContent).length < 3) {
 
-           // まだ選んでいなければ追加
-           selectedLunchDay.textContent += emoji;
+                // まだ選んでいなければ追加
+                selectedLunchDay.textContent += emoji;
 
-       }
-       
+            }
 
-    }
-       
+
+        }
+
 
     });
 });
@@ -141,7 +141,7 @@ backOptionLunch.addEventListener("click", function () {
 
         selectedLunchDay.textContent = emojis.join("");
 
-        
+
     }
 
 });
@@ -161,12 +161,12 @@ doneOptionLunch.addEventListener("click", function () {
 const breadOption = document.getElementById("bread-option");
 
 const breakfastOptions =
-    document.querySelectorAll("#breakfast-menu div:not(#back-option):not(#done-option)");  
+    document.querySelectorAll("#breakfast-menu div:not(#back-option):not(#done-option)");
 
 
-breakfastOptions.forEach(function(option) {
+breakfastOptions.forEach(function (option) {
 
-    option.addEventListener("click", function() {
+    option.addEventListener("click", function () {
 
         const emoji = option.textContent.split(" ")[0];
 
@@ -175,33 +175,33 @@ breakfastOptions.forEach(function(option) {
             return;
         }
 
-    if (selectedBreakfastDay !== null) {
+        if (selectedBreakfastDay !== null) {
 
-        const dayId = selectedBreakfastDay.id;
+            const dayId = selectedBreakfastDay.id;
 
-        if (!breakfastItemsByDay[dayId]) {
-            breakfastItemsByDay[dayId] = [];
+            if (!breakfastItemsByDay[dayId]) {
+                breakfastItemsByDay[dayId] = [];
+            }
+
+            if (breakfastItemsByDay[dayId].includes(emoji)) {
+
+                // 同じ絵文字があれば消す
+                breakfastItemsByDay[dayId] =
+                    breakfastItemsByDay[dayId].filter(function (item) {
+                        return item !== emoji;
+                    });
+
+            } else if (breakfastItemsByDay[dayId].length < 3) {
+
+                // まだ選んでいなければ追加
+                breakfastItemsByDay[dayId].push(emoji);
+
+            }
+
+            selectedBreakfastDay.textContent =
+                breakfastItemsByDay[dayId].join("");
+
         }
-
-        if (breakfastItemsByDay[dayId].includes(emoji)) {
-
-        // 同じ絵文字があれば消す
-        breakfastItemsByDay[dayId] =
-            breakfastItemsByDay[dayId].filter(function(item) {
-                return item !== emoji;
-            });
-
-} else if (breakfastItemsByDay[dayId].length < 3) {
-
-    // まだ選んでいなければ追加
-    breakfastItemsByDay[dayId].push(emoji);
-
-}
-
-selectedBreakfastDay.textContent =
-    breakfastItemsByDay[dayId].join("");
-        
-    }
 
     });
 
@@ -261,7 +261,7 @@ backOption.addEventListener("click", function () {
 // 夕食
 // ======================
 
-const dinnerMon = document.getElementById("dinner-mon");   
+const dinnerMon = document.getElementById("dinner-mon");
 const dinnerMenu = document.getElementById("dinner-menu");
 
 // 夕食メニューの「完了」ボタン
@@ -299,7 +299,7 @@ soupOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🍲";
     }
-    
+
 });
 
 // 現在選択している夕食の曜日
@@ -320,7 +320,7 @@ porkOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🐷";
     }
-    
+
 });
 
 // 鶏肉料理を選択
@@ -335,7 +335,7 @@ chickenOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🐔";
     }
-    
+
 });
 
 // 卵料理を選択
@@ -350,7 +350,7 @@ eggOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🥚";
     }
-    
+
 });
 
 // 野菜を選択
@@ -365,7 +365,7 @@ vegetableOptionDinner.addEventListener("click", function (event) {
     } else {
         selectedDinnerDay.textContent += "🥦";
     }
-    
+
 });
 
 
@@ -394,17 +394,17 @@ const dinnerDays = [
     "mon", "tue", "wed", "thu", "fri", "sat", "sun"
 ];
 
-dinnerDays.forEach(function(dayName) {
+dinnerDays.forEach(function (dayName) {
 
     const dinnerCell = document.getElementById("dinner-" + dayName);
 
     const emojiId = dayName === "mon"
-    ? "dinner-main-emoji"
-    : "dinner-main-emoji-" + dayName;
+        ? "dinner-main-emoji"
+        : "dinner-main-emoji-" + dayName;
 
     const dinnerEmoji = document.getElementById(emojiId);
 
-    dinnerCell.addEventListener("click", function() {
+    dinnerCell.addEventListener("click", function () {
 
         selectedDinnerDay = dinnerEmoji;
 
@@ -435,7 +435,7 @@ dinnerDays.forEach(function(dayName) {
 // 朝ごはん7日分の保存・読み込み
 // ======================
 
-breakfastDays.forEach(function(day) {
+breakfastDays.forEach(function (day) {
 
     const storageKey = day.id;
 
@@ -451,8 +451,14 @@ breakfastDays.forEach(function(day) {
     }
 
     // 朝ごはんが変更されたら自動保存
+    
     const observer = new MutationObserver(function() {
-        localStorage.setItem(storageKey, day.textContent);
+
+    if (isLoadingWeek) {
+        return;
+    }
+
+    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
     });
 
     observer.observe(day, {
@@ -468,7 +474,7 @@ breakfastDays.forEach(function(day) {
 // 昼ごはん7日分の保存・読み込み
 // ======================
 
-lunchDays.forEach(function(day) {
+lunchDays.forEach(function (day) {
 
     const storageKey = day.id;
 
@@ -483,10 +489,16 @@ lunchDays.forEach(function(day) {
     }
 
     // 昼ごはんが変更されたら自動保存
+    
     const observer = new MutationObserver(function() {
-        localStorage.setItem(storageKey, day.textContent);
-    });
 
+    if (isLoadingWeek) {
+        return;
+    }
+
+    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
+    });
+    
     observer.observe(day, {
         childList: true,
         characterData: true,
@@ -510,7 +522,7 @@ const dinnerSaveDays = [
     "dinner-main-emoji-sun"
 ];
 
-dinnerSaveDays.forEach(function(dayId) {
+dinnerSaveDays.forEach(function (dayId) {
 
     const day = document.getElementById(dayId);
 
@@ -522,8 +534,14 @@ dinnerSaveDays.forEach(function(dayId) {
     }
 
     // 夜ごはんが変更されたら自動保存
+    
     const observer = new MutationObserver(function() {
-        localStorage.setItem(dayId, day.textContent);
+
+    if (isLoadingWeek) {
+        return;
+    }
+
+    localStorage.setItem("week-" + getWeekKey() + "-" + dayId, day.textContent);
     });
 
     observer.observe(day, {
@@ -544,11 +562,11 @@ const bentoDays = [
     "fri", "sat", "sun"
 ];
 
-bentoDays.forEach(function(dayName) {
+bentoDays.forEach(function (dayName) {
 
     const bento = document.getElementById("bento-" + dayName);
 
-    bento.addEventListener("click", function() {
+    bento.addEventListener("click", function () {
 
         const count = (bento.textContent.match(/🍱/g) || []).length;
 
@@ -565,7 +583,7 @@ bentoDays.forEach(function(dayName) {
 // お弁当7日分の保存・読み込み
 // ======================
 
-bentoDays.forEach(function(dayName) {
+bentoDays.forEach(function (dayName) {
 
     const bento = document.getElementById("bento-" + dayName);
     const storageKey = "bento-" + dayName;
@@ -578,8 +596,14 @@ bentoDays.forEach(function(dayName) {
     }
 
     // 個数が変わったら自動保存
+    
     const observer = new MutationObserver(function() {
-        localStorage.setItem(storageKey, bento.textContent);
+
+    if (isLoadingWeek) {
+        return;
+    }
+
+    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, bento.textContent);
     });
 
     observer.observe(bento, {
@@ -601,6 +625,7 @@ bentoDays.forEach(function(dayName) {
 
 // 今週から何週間ずれているか
 let weekOffset = 0;
+let isLoadingWeek = false;
 
 // 表示中の週の月曜日を保存用の名前にする
 function getWeekKey() {
@@ -637,7 +662,7 @@ function backupCurrentWeekMeals() {
         ...bentoDays.map(day => "bento-" + day)
     ];
 
-    mealIds.forEach(function(id) {
+    mealIds.forEach(function (id) {
 
         const oldData = localStorage.getItem(id);
         const newKey = "week-" + weekKey + "-" + id;
@@ -652,6 +677,83 @@ function backupCurrentWeekMeals() {
 
 // 今週のデータを週別の名前でも保存
 backupCurrentWeekMeals();
+
+// ======================
+// 週ごとの献立を読み込む
+// ======================
+
+function loadWeekMeals() {
+
+    isLoadingWeek = true;
+
+    const weekKey = getWeekKey();
+
+    const mealIds = [
+        ...breakfastDays.map(day => day.id),
+        ...lunchDays.map(day => day.id),
+        ...dinnerSaveDays,
+        ...bentoDays.map(day => "bento-" + day)
+    ];
+
+    mealIds.forEach(function (id) {
+
+        const saved = localStorage.getItem("week-" + weekKey + "-" + id);
+
+        const cell = document.getElementById(id);
+
+        if (saved !== null) {
+            cell.textContent = saved;
+        } else {
+            cell.textContent = "";
+        }
+
+        if (id.startsWith("breakfast-")) {
+            breakfastItemsByDay[id] = Array.from(cell.textContent);
+        }   
+
+        if (id.startsWith("lunch-")) {
+            if (saved !== null) {
+                cell.dataset.selected = "true";
+            } else {
+                delete cell.dataset.selected;
+            }
+        }
+
+    });
+   
+    setTimeout(function() {
+        isLoadingWeek = false;
+    }, 0);
+
+}
+
+
+// ======================
+// 表示中の週の献立をまとめて保存
+// ======================
+
+function saveWeekMeals() {
+
+    const weekKey = getWeekKey();
+
+    const mealIds = [
+        ...breakfastDays.map(day => day.id),
+        ...lunchDays.map(day => day.id),
+        ...dinnerSaveDays,
+        ...bentoDays.map(day => "bento-" + day)
+    ];
+
+    mealIds.forEach(function(id) {
+
+        const cell = document.getElementById(id);
+
+        localStorage.setItem(
+            "week-" + weekKey + "-" + id,
+            cell.textContent
+        );
+
+    });
+}
 
 
 // 日付を表示する曜日
@@ -669,7 +771,7 @@ function showWeekDates() {
     // 前後の週に移動
     monday.setDate(monday.getDate() + weekOffset * 7);
 
-    weekIds.forEach(function(day, index) {
+    weekIds.forEach(function (day, index) {
 
         const date = new Date(monday);
         date.setDate(monday.getDate() + index);
@@ -684,25 +786,31 @@ function showWeekDates() {
 
 // 最初は今週を表示
 showWeekDates();
+loadWeekMeals();
 
 // 前の週
 document.getElementById("prev-week").addEventListener("click", function() {
+    saveWeekMeals();
     weekOffset--;
     showWeekDates();
+    loadWeekMeals();
 });
 
 // 今週に戻る
 document.getElementById("current-week").addEventListener("click", function() {
+    saveWeekMeals();
     weekOffset = 0;
     showWeekDates();
+    loadWeekMeals();
 });
 
 // 次の週
 document.getElementById("next-week").addEventListener("click", function() {
+    saveWeekMeals();
     weekOffset++;
     showWeekDates();
+    loadWeekMeals();
 });
-
 
 // ======================
 // 今日の列を色付け
@@ -718,7 +826,7 @@ const todayColumn = todayIndex + 2;
 // 今日の曜日と日付を色付け
 // ======================
 
-document.querySelectorAll(".date-row").forEach(function(row) {
+document.querySelectorAll(".date-row").forEach(function (row) {
 
     const cell = row.children[todayIndex + 1];
 
@@ -729,7 +837,7 @@ document.querySelectorAll(".date-row").forEach(function(row) {
 });
 
 // 今日の献立のマスに色を付ける
-document.querySelectorAll(".meal-row").forEach(function(row) {
+document.querySelectorAll(".meal-row").forEach(function (row) {
 
     const cell = row.children[todayIndex + 1];
 
@@ -754,7 +862,7 @@ const dinnerEmojiIds = [
     "dinner-main-emoji-sun"
 ];
 
-dinnerEmojiIds.forEach(function(emojiId) {
+dinnerEmojiIds.forEach(function (emojiId) {
 
     const emojiArea = document.getElementById(emojiId);
 
@@ -765,7 +873,7 @@ dinnerEmojiIds.forEach(function(emojiId) {
 
         emojiArea.innerHTML = "";
 
-        emojis.forEach(function(emoji) {
+        emojis.forEach(function (emoji) {
 
             const emojiBox = document.createElement("span");
             emojiBox.textContent = emoji;
@@ -775,7 +883,7 @@ dinnerEmojiIds.forEach(function(emojiId) {
         });
     }
 
-    const emojiObserver = new MutationObserver(function() {
+    const emojiObserver = new MutationObserver(function () {
 
         emojiObserver.disconnect();
 
