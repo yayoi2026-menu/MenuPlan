@@ -522,6 +522,31 @@ const dinnerSaveDays = [
     "dinner-main-emoji-sun"
 ];
 
+// ======================
+// 夕食の料理名・副菜の目印
+// ======================
+
+const dinnerTextDays = [
+    "dinner-text-mon",
+    "dinner-text-tue",
+    "dinner-text-wed",
+    "dinner-text-thu",
+    "dinner-text-fri",
+    "dinner-text-sat",
+    "dinner-text-sun"
+];
+
+const dinnerSubDays = [
+    "dinner-sub-mon",
+    "dinner-sub-tue",
+    "dinner-sub-wed",
+    "dinner-sub-thu",
+    "dinner-sub-fri",
+    "dinner-sub-sat",
+    "dinner-sub-sun"
+];
+
+
 dinnerSaveDays.forEach(function (dayId) {
 
     const day = document.getElementById(dayId);
@@ -675,8 +700,40 @@ function backupCurrentWeekMeals() {
     });
 }
 
+// ======================
+// 今週の夕食の文字を初回だけ保存
+// ======================
+
+function backupDinnerTexts() {
+
+    const weekKey = "2026-10-26";
+
+    const textIds = [
+        ...dinnerTextDays,
+        ...dinnerSubDays
+    ];
+
+    textIds.forEach(function(id) {
+
+        const cell = document.getElementById(id);
+        const storageKey = "week-" + weekKey + "-" + id;
+
+        // 保存データがまだない場合だけ登録
+        if (cell && (
+            localStorage.getItem(storageKey) === null ||
+            localStorage.getItem(storageKey).trim() === ""
+        )) {
+            localStorage.setItem(storageKey, cell.innerHTML);
+        }
+
+    });
+}
+
+
 // 今週のデータを週別の名前でも保存
 backupCurrentWeekMeals();
+//backupDinnerTexts();
+
 
 // ======================
 // 週ごとの献立を読み込む
@@ -692,6 +749,8 @@ function loadWeekMeals() {
         ...breakfastDays.map(day => day.id),
         ...lunchDays.map(day => day.id),
         ...dinnerSaveDays,
+        ...dinnerTextDays,
+        ...dinnerSubDays,
         ...bentoDays.map(day => "bento-" + day)
     ];
 
@@ -701,11 +760,15 @@ function loadWeekMeals() {
 
         const cell = document.getElementById(id);
 
-        if (saved !== null) {
-            cell.textContent = saved;
+        if (
+            dinnerTextDays.includes(id) ||
+            dinnerSubDays.includes(id)
+        ) {
+            cell.innerHTML = saved !== null ? saved : "";
         } else {
-            cell.textContent = "";
+            cell.textContent = saved !== null ? saved : "";
         }
+
 
         if (id.startsWith("breakfast-")) {
             breakfastItemsByDay[id] = Array.from(cell.textContent);
@@ -740,6 +803,8 @@ function saveWeekMeals() {
         ...breakfastDays.map(day => day.id),
         ...lunchDays.map(day => day.id),
         ...dinnerSaveDays,
+        ...dinnerTextDays,
+        ...dinnerSubDays,
         ...bentoDays.map(day => "bento-" + day)
     ];
 
@@ -747,9 +812,16 @@ function saveWeekMeals() {
 
         const cell = document.getElementById(id);
 
+        const mealText = (
+            dinnerTextDays.includes(id) ||
+            dinnerSubDays.includes(id)
+        )
+            ? cell.innerHTML
+            : cell.textContent;
+
         localStorage.setItem(
             "week-" + weekKey + "-" + id,
-            cell.textContent
+            mealText
         );
 
     });
