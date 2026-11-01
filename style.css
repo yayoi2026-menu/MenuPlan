@@ -310,3 +310,10 @@ h2 {
     background-color: white;
     cursor: pointer;
 }
+
+/* 週切り替えボタンを青色にする */
+#prev-week,
+#current-week,
+#next-week {
+    color: #2117b2;
+}
