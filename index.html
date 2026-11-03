@@ -36,10 +36,27 @@
 
             <div class="todo-list">
                <ul>
-                  <li>□ パンを焼く</li>
-                  <li>□ 牛乳を買う</li>
-                  <li>□ お米をセット</li>
+                  <li>
+                        <input type="checkbox">
+                        <span contenteditable="true">パンを焼く</span>
+                  </li>
+
+                  <li>
+                        <input type="checkbox">
+                        <span contenteditable="true">牛乳を買う</span>
+                  </li>
+
+                  <li>
+                        <input type="checkbox">
+                        <span contenteditable="true">お米をセット</span>
+                  </li>
+
                </ul>
+
+               <button type="button" id="todo-add">
+                  ＋ 追加
+               </button>
+
             </div>
 
          </div>
@@ -144,8 +161,8 @@
                <div>🍜 やきそば</div>
                <div>🥚 たまご</div>
                <div>🥦 やさい</div>
-               <div>🥝 フルーツ</div>
                <div>🥣 スープ</div>
+               <div>🍽️ 外食</div>
 
                <div id="back-option-lunch">❌ 戻る</div>
                <div id="done-option-lunch">✔ 完了</div>
@@ -230,13 +247,13 @@
                   <span id="dinner-main-emoji">🍚🥗</span>
                </div>
 
-               <div class="dinner-text-area" id="dinner-text-mon">
+               <div class="dinner-text-area" id="dinner-text-mon" contenteditable="true">
                   生姜焼き
                </div>
 
             </div>
 
-            <div class="sub-menu" id="dinner-sub-mon">
+            <div class="sub-menu" id="dinner-sub-mon" contenteditable="true">
                ブロッコリー<br>
                味噌汁<br>
                いちご
@@ -251,13 +268,13 @@
                   <span id="dinner-main-emoji-tue">🍚</span>
                </div>
 
-               <div class="dinner-text-area" id="dinner-text-tue">
+               <div class="dinner-text-area" id="dinner-text-tue" contenteditable="true">
                   餃子
                </div>
 
             </div>
 
-            <div class="sub-menu" id="dinner-sub-tue">
+            <div class="sub-menu" id="dinner-sub-tue" contenteditable="true">
                わかめスープ<br>
                サラダ
             </div>
@@ -270,12 +287,12 @@
                   <span id="dinner-main-emoji-wed">🐟</span>
                </div>
 
-               <div class="dinner-text-area" id="dinner-text-wed">
+               <div class="dinner-text-area" id="dinner-text-wed" contenteditable="true">
                   魚
                </div>
             </div>
 
-            <div class="sub-menu" id="dinner-sub-wed">
+            <div class="sub-menu" id="dinner-sub-wed" contenteditable="true">
                とん汁
             </div>
          </div>
@@ -286,12 +303,12 @@
                <div class="dinner-emoji-area">
                   <span id="dinner-main-emoji-thu">🍝</span>
                </div>
-               <div class="dinner-text-area" id="dinner-text-thu">
+               <div class="dinner-text-area" id="dinner-text-thu" contenteditable="true">
                   グラタン
                </div>
             </div>
 
-            <div class="sub-menu" id="dinner-sub-thu">
+            <div class="sub-menu" id="dinner-sub-thu" contenteditable="true">
                スープ
             </div>
          </div>
@@ -302,12 +319,12 @@
                <div class="dinner-emoji-area">
                   <span id="dinner-main-emoji-fri">🍚🥗</span>
                </div>
-               <div class="dinner-text-area" id="dinner-text-fri">
+               <div class="dinner-text-area" id="dinner-text-fri" contenteditable="true">
                   生姜焼き
                </div>
             </div>
 
-            <div class="sub-menu" id="dinner-sub-fri">
+            <div class="sub-menu" id="dinner-sub-fri" contenteditable="true">
                ブロッコリー<br>
                味噌汁
             </div>
@@ -319,10 +336,10 @@
                <div class="dinner-emoji-area">
                   <span id="dinner-main-emoji-sat">🍚🥗</span>
                </div>
-               <div class="dinner-text-area" id="dinner-text-sat">生姜焼き</div>
+               <div class="dinner-text-area" id="dinner-text-sat" contenteditable="true">生姜焼き</div>
             </div>
 
-            <div class="sub-menu" id="dinner-sub-sat">
+            <div class="sub-menu" id="dinner-sub-sat" contenteditable="true">
                ブロッコリー<br>
                味噌汁
             </div>
@@ -334,10 +351,10 @@
                <div class="dinner-emoji-area">
                   <span id="dinner-main-emoji-sun">🍚🥗</span>
                </div>
-               <div class="dinner-text-area" id="dinner-text-sun">生姜焼き</div>
+               <div class="dinner-text-area" id="dinner-text-sun" contenteditable="true">生姜焼き</div>
             </div>
 
-            <div class="sub-menu" id="dinner-sub-sun">
+            <div class="sub-menu" id="dinner-sub-sun" contenteditable="true">
                ブロッコリー<br>
                味噌汁
             </div>

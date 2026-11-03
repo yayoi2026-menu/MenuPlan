@@ -317,3 +317,31 @@ h2 {
 #next-week {
     color: #2117b2;
 }
+
+/* 夜の絵文字と料理名の境界線 */
+.dinner-emoji-area {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+}
+
+/* 朝・昼の空欄もクリックしやすくする */
+[id^="breakfast-"]:not(.popup-menu),
+[id^="lunch-"]:not(.popup-menu) {
+    min-height: 32px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* ＋追加ボタンをチェックボックスの位置に揃える */
+#todo-add {
+    display: block;
+    margin-left: 40px;
+    margin-right: auto;
+}  
+
+/* やることリストの「・」を消す */
+.todo-list ul {
+    list-style: none;
+    padding-left: 10px;
+}

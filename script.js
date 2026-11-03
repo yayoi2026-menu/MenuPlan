@@ -1,6 +1,11 @@
 const button = document.getElementById("todo-button");
 const todoList = document.querySelector(".todo-list");
 
+// リスト内をクリックしても閉じないようにする
+todoList.addEventListener("click", function (event) {
+    event.stopPropagation();
+});
+
 button.addEventListener("click", function () {
 
     if (todoList.style.display === "block") {
@@ -10,6 +15,60 @@ button.addEventListener("click", function () {
     }
 
 });
+
+// やることリストを自動保存
+function saveTodoList() {
+    const items = [];
+
+    todoList.querySelectorAll("li").forEach(function (li) {
+        items.push({
+            text: li.querySelector("span").textContent,
+            checked: li.querySelector("input").checked
+        });
+    });
+
+    localStorage.setItem(
+        "week-" + getWeekKey() + "-todo-mon",
+        JSON.stringify(items)
+    );
+}
+
+// 文字を変更したとき・チェックしたときに保存
+todoList.addEventListener("input", saveTodoList);
+todoList.addEventListener("change", saveTodoList);
+
+// 保存した月曜日のやることリストを読み込む
+function loadTodoList() {
+    const saved = localStorage.getItem(
+        "week-" + getWeekKey() + "-todo-mon"
+    );
+
+    if (saved === null) {
+    return;
+    }
+
+    const items = JSON.parse(saved);
+    const ul = todoList.querySelector("ul");
+
+    ul.innerHTML = "";
+
+    items.forEach(function (item) {
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = item.checked;
+
+        const span = document.createElement("span");
+        span.contentEditable = "true";
+        span.textContent = item.text;
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        ul.appendChild(li);
+    });
+}
+
 
 const breakfastMon = document.getElementById("breakfast-mon");
 const breakfastMenu = document.getElementById("breakfast-menu");
@@ -788,6 +847,8 @@ function loadWeekMeals() {
         isLoadingWeek = false;
     }, 0);
 
+    loadTodoList();
+
 }
 
 
@@ -863,6 +924,7 @@ loadWeekMeals();
 // 前の週
 document.getElementById("prev-week").addEventListener("click", function() {
     saveWeekMeals();
+    saveTodoList();
     weekOffset--;
     showWeekDates();
     loadWeekMeals();
@@ -871,6 +933,7 @@ document.getElementById("prev-week").addEventListener("click", function() {
 // 今週に戻る
 document.getElementById("current-week").addEventListener("click", function() {
     saveWeekMeals();
+    saveTodoList();
     weekOffset = 0;
     showWeekDates();
     loadWeekMeals();
@@ -879,6 +942,7 @@ document.getElementById("current-week").addEventListener("click", function() {
 // 次の週
 document.getElementById("next-week").addEventListener("click", function() {
     saveWeekMeals();
+    saveTodoList();
     weekOffset++;
     showWeekDates();
     loadWeekMeals();
@@ -976,4 +1040,53 @@ dinnerEmojiIds.forEach(function (emojiId) {
         subtree: true
     });
 
+});
+
+
+// 月曜日〜日曜日の夕食の料理名を自動保存
+dinnerTextDays.forEach(function (id) {
+    const cell = document.getElementById(id);
+
+    if (cell) {
+        cell.addEventListener("input", function () {
+            localStorage.setItem(
+                "week-" + getWeekKey() + "-" + id,
+                cell.innerHTML
+            );
+        });
+    }
+});
+
+// 月曜日〜日曜日の夕食の副菜・汁物を自動保存
+dinnerSubDays.forEach(function (id) {
+    const cell = document.getElementById(id);
+
+    if (cell) {
+        cell.addEventListener("input", function () {
+            localStorage.setItem(
+                "week-" + getWeekKey() + "-" + id,
+                cell.innerHTML
+            );
+        });
+    }
+});
+
+// やることリストに新しい項目を追加
+const todoAdd = document.getElementById("todo-add");
+const todoUl = document.querySelector(".todo-list ul");
+
+todoAdd.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+        <input type="checkbox">
+        <span contenteditable="true"></span>
+    `;
+
+    todoUl.appendChild(li);
+
+    // 追加した行にすぐ入力できるようにする
+    li.querySelector("span").focus();
 });
