@@ -1,12 +1,63 @@
 const button = document.getElementById("todo-button");
 const todoList = document.querySelector(".todo-list");
 
+// 今開いているやることリストの曜日
+let currentTodoDay = "mon";
+
+// 火曜日の📝を押したら、その下に共通リストを移動
+const todoTuesday = document.querySelector('[data-day="tue"]');
+
+todoTuesday.addEventListener("click", function (event) {
+    event.stopPropagation();
+
+    // 今開いているのは火曜日
+    currentTodoDay = "tue";
+
+    // 共通リストを火曜日の中へ移動
+    todoTuesday.appendChild(todoList);
+    loadTodoList();
+
+    // リストを表示
+    todoList.style.display = "block";
+});
+
+// 水曜日〜日曜日の📝を押したとき
+document.querySelectorAll(
+    '.todo-day:not([data-day="tue"])'
+).forEach(function(dayButton) {
+
+    dayButton.addEventListener("click", function(event) {
+        event.stopPropagation();
+
+        // 今選んだ曜日を記憶
+        currentTodoDay = dayButton.dataset.day;
+
+        // 共通リストを選んだ曜日へ移動
+        dayButton.appendChild(todoList);
+
+        // その曜日の予定を読み込む
+        loadTodoList();
+
+        // リストを開く
+        todoList.style.display = "block";
+    });
+
+});
+
+
 // リスト内をクリックしても閉じないようにする
 todoList.addEventListener("click", function (event) {
     event.stopPropagation();
 });
 
 button.addEventListener("click", function () {
+
+    // 今開いているのは月曜日
+    currentTodoDay = "mon";
+
+    // 共通リストを月曜日に戻す
+    button.appendChild(todoList);
+    loadTodoList();
 
     if (todoList.style.display === "block") {
         todoList.style.display = "none";
@@ -15,6 +66,42 @@ button.addEventListener("click", function () {
     }
 
 });
+
+
+// ✖を押したらやることリストを閉じる
+document.getElementById("todo-close").addEventListener("click", function (event) {
+    event.stopPropagation();
+    todoList.style.display = "none";
+});
+
+// やることがある日は📝、ない日は🎲
+function updateTodoMark(day) {
+
+    const saved = localStorage.getItem(
+        "week-" + getWeekKey() + "-todo-" + day
+    );
+
+    const items = saved ? JSON.parse(saved) : [];
+
+    const hasTodo = items.some(function(item) {
+        return item.text.trim() !== "";
+    });
+
+    const mark = day === "mon"
+        ? document.getElementById("todo-button")
+        : document.querySelector('[data-day="' + day + '"]');
+
+    if (mark) {
+        mark.firstChild.textContent = hasTodo ? "📝" : "🎲";
+    }
+}
+
+// 月曜日〜日曜日のマークをまとめて更新
+function updateAllTodoMarks() {
+    ["mon", "tue", "wed", "thu", "fri", "sat", "sun"].forEach(function(day) {
+        updateTodoMark(day);
+    });
+}
 
 // やることリストを自動保存
 function saveTodoList() {
@@ -28,22 +115,26 @@ function saveTodoList() {
     });
 
     localStorage.setItem(
-        "week-" + getWeekKey() + "-todo-mon",
+        "week-" + getWeekKey() + "-todo-" + currentTodoDay,
         JSON.stringify(items)
     );
+
+    updateTodoMark(currentTodoDay);
 }
 
 // 文字を変更したとき・チェックしたときに保存
 todoList.addEventListener("input", saveTodoList);
 todoList.addEventListener("change", saveTodoList);
 
-// 保存した月曜日のやることリストを読み込む
+// 保存した曜日別のやることリストを読み込む
 function loadTodoList() {
     const saved = localStorage.getItem(
-        "week-" + getWeekKey() + "-todo-mon"
+        "week-" + getWeekKey() + "-todo-" + currentTodoDay
     );
 
     if (saved === null) {
+    const ul = todoList.querySelector("ul");
+    ul.innerHTML = "";
     return;
     }
 
@@ -62,9 +153,13 @@ function loadTodoList() {
         const span = document.createElement("span");
         span.contentEditable = "true";
         span.textContent = item.text;
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "todo-delete";
+        deleteButton.textContent = "×";
 
         li.appendChild(checkbox);
         li.appendChild(span);
+        li.appendChild(deleteButton);
         ul.appendChild(li);
     });
 }
@@ -463,7 +558,7 @@ dinnerDays.forEach(function (dayName) {
 
     const dinnerEmoji = document.getElementById(emojiId);
 
-    dinnerCell.addEventListener("click", function () {
+    dinnerEmoji.addEventListener("click", function () {
 
         selectedDinnerDay = dinnerEmoji;
 
@@ -510,14 +605,14 @@ breakfastDays.forEach(function (day) {
     }
 
     // 朝ごはんが変更されたら自動保存
-    
-    const observer = new MutationObserver(function() {
 
-    if (isLoadingWeek) {
-        return;
-    }
+    const observer = new MutationObserver(function () {
 
-    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
+        if (isLoadingWeek) {
+            return;
+        }
+
+        localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
     });
 
     observer.observe(day, {
@@ -548,16 +643,16 @@ lunchDays.forEach(function (day) {
     }
 
     // 昼ごはんが変更されたら自動保存
-    
-    const observer = new MutationObserver(function() {
 
-    if (isLoadingWeek) {
-        return;
-    }
+    const observer = new MutationObserver(function () {
 
-    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
+        if (isLoadingWeek) {
+            return;
+        }
+
+        localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, day.textContent);
     });
-    
+
     observer.observe(day, {
         childList: true,
         characterData: true,
@@ -618,14 +713,14 @@ dinnerSaveDays.forEach(function (dayId) {
     }
 
     // 夜ごはんが変更されたら自動保存
-    
-    const observer = new MutationObserver(function() {
 
-    if (isLoadingWeek) {
-        return;
-    }
+    const observer = new MutationObserver(function () {
 
-    localStorage.setItem("week-" + getWeekKey() + "-" + dayId, day.textContent);
+        if (isLoadingWeek) {
+            return;
+        }
+
+        localStorage.setItem("week-" + getWeekKey() + "-" + dayId, day.textContent);
     });
 
     observer.observe(day, {
@@ -680,14 +775,14 @@ bentoDays.forEach(function (dayName) {
     }
 
     // 個数が変わったら自動保存
-    
-    const observer = new MutationObserver(function() {
 
-    if (isLoadingWeek) {
-        return;
-    }
+    const observer = new MutationObserver(function () {
 
-    localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, bento.textContent);
+        if (isLoadingWeek) {
+            return;
+        }
+
+        localStorage.setItem("week-" + getWeekKey() + "-" + storageKey, bento.textContent);
     });
 
     observer.observe(bento, {
@@ -772,7 +867,7 @@ function backupDinnerTexts() {
         ...dinnerSubDays
     ];
 
-    textIds.forEach(function(id) {
+    textIds.forEach(function (id) {
 
         const cell = document.getElementById(id);
         const storageKey = "week-" + weekKey + "-" + id;
@@ -831,7 +926,7 @@ function loadWeekMeals() {
 
         if (id.startsWith("breakfast-")) {
             breakfastItemsByDay[id] = Array.from(cell.textContent);
-        }   
+        }
 
         if (id.startsWith("lunch-")) {
             if (saved !== null) {
@@ -842,13 +937,14 @@ function loadWeekMeals() {
         }
 
     });
-   
-    setTimeout(function() {
+
+    setTimeout(function () {
         isLoadingWeek = false;
     }, 0);
 
+    currentTodoDay = "mon";
     loadTodoList();
-
+    updateAllTodoMarks();
 }
 
 
@@ -869,7 +965,7 @@ function saveWeekMeals() {
         ...bentoDays.map(day => "bento-" + day)
     ];
 
-    mealIds.forEach(function(id) {
+    mealIds.forEach(function (id) {
 
         const cell = document.getElementById(id);
 
@@ -922,7 +1018,7 @@ showWeekDates();
 loadWeekMeals();
 
 // 前の週
-document.getElementById("prev-week").addEventListener("click", function() {
+document.getElementById("prev-week").addEventListener("click", function () {
     saveWeekMeals();
     saveTodoList();
     weekOffset--;
@@ -931,7 +1027,7 @@ document.getElementById("prev-week").addEventListener("click", function() {
 });
 
 // 今週に戻る
-document.getElementById("current-week").addEventListener("click", function() {
+document.getElementById("current-week").addEventListener("click", function () {
     saveWeekMeals();
     saveTodoList();
     weekOffset = 0;
@@ -940,7 +1036,7 @@ document.getElementById("current-week").addEventListener("click", function() {
 });
 
 // 次の週
-document.getElementById("next-week").addEventListener("click", function() {
+document.getElementById("next-week").addEventListener("click", function () {
     saveWeekMeals();
     saveTodoList();
     weekOffset++;
@@ -1071,6 +1167,21 @@ dinnerSubDays.forEach(function (id) {
     }
 });
 
+
+// ×を押したら、その行を削除する
+todoList.addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("todo-delete")) {
+
+        event.stopPropagation();
+
+        event.target.closest("li").remove();
+
+        saveTodoList();
+    }
+
+});
+
 // やることリストに新しい項目を追加
 const todoAdd = document.getElementById("todo-add");
 const todoUl = document.querySelector(".todo-list ul");
@@ -1082,7 +1193,8 @@ todoAdd.addEventListener("click", function (event) {
 
     li.innerHTML = `
         <input type="checkbox">
-        <span contenteditable="true"></span>
+        <span contenteditable="true"><br></span>
+        <button type="button" class="todo-delete">×</button>
     `;
 
     todoUl.appendChild(li);
@@ -1090,3 +1202,4 @@ todoAdd.addEventListener("click", function (event) {
     // 追加した行にすぐ入力できるようにする
     li.querySelector("span").focus();
 });
+
